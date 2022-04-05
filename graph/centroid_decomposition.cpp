@@ -7,7 +7,7 @@ int size(int u, int p) {
     return sz[u];
 }
 int centroid(int u, int p, int n){
-    for(int v: adj[u]) if(v != p && sz[v] > n/2 && !vis[v]) return centroid(v, u, n);
+    for(int v: adj[u]) if(v != p && sz[v] > n / 2 && !vis[v]) return centroid(v, u, n);
     return u;
 }
 void build_centroid(int u, int p, int depth){
