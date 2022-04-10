@@ -1166,9 +1166,3 @@ double maximum_inscribed_circle(vector<PT> p) {
 	}
 	return l;
 }
-int32_t main() {
-  	ios_base::sync_with_stdio(0);
-  	cin.tie(0);
-  	
- 	return 0;	
-}
