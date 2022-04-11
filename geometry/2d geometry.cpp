@@ -78,7 +78,7 @@ struct line {
         a = p.first; b = p.second;
 	}
 	// goes through points p and q
-	line(PT p, PT q) : v(q - p), c(cross(v, p)), a(p), b(q) {}
+	line(PT p, PT q) : v(q - p), c(-cross(v, p)), a(p), b(q) {}
 	pair<PT, PT> get_points() { //extract any two points from this line
 		PT p, q; double a = -v.y, b = v.x; // ax + by = -c
 		if (sign(a) == 0) {
