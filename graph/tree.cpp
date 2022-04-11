@@ -10,7 +10,7 @@ struct tree {
         adj.resize(n);
  
         logn = log2(n) + 1;
-        up.assign(n, vector<int>(logn + 1));
+        up.assign(n, vector<int>(logn));
     }
     
     void add(int a, int b) {
