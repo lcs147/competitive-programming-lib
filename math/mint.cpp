@@ -19,6 +19,7 @@ struct mint {
     bool operator >= (mint oth) const { return val >= oth.val; }
     bool operator == (mint oth) const { return val == oth.val; }
     bool operator != (mint oth) const { return val != oth.val; }
+    mint cpow(mint a, int b) const { mint r = 1; for(; b; a *= a, b >>= 1) if(b&1) r *= a; return r; }
     mint inverse() const {
         int a = val, b = mod, u = 1, v = 0;
         while(b){
@@ -31,4 +32,3 @@ struct mint {
         return u;
     }
 };
-mint cpow(mint a, int b) const { mint r = 1; for(; b; a *= a, b >>= 1) if(b&1) r *= a; return r; }
