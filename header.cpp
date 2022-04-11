@@ -11,7 +11,8 @@ signed main() {
     cin.tie(0);
     #define endl '\n'
 
-    int t; cin >> t;
+    int t = 1;
+    // cin >> t;
     while(t--)
         solve();
 
