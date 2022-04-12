@@ -1,16 +1,15 @@
 struct tree {
     vector<vector<int>> adj, up;
     vector<int> lvl, dad, sz;
-    int logn;
+    int n, logn;
  
-    tree(int n) {
+    tree(int n) : n(n) {
         lvl.resize(n);
         dad.resize(n);
         sz.resize(n);
         adj.resize(n);
  
         logn = log2(n) + 1;
-        up.assign(n, vector<int>(logn));
     }
     
     void add(int a, int b) {
@@ -18,19 +17,35 @@ struct tree {
         adj[b].push_back(a);
     }
  
-    void build_lca(int u, int p) {
+    void dfs(int u, int p) {
         sz[u] = 1;
         dad[u] = p;
-        up[u][0] = p;
-        for(int j = 1; j < logn; j++) {
-            up[u][j] = up[up[u][j - 1]][j - 1];
-        }
- 
         for(int v : adj[u]) {
-            if(p == v) continue;
+            if(v == p) continue;
             lvl[v] = lvl[u] + 1;
-            build_lca(v, u);
+            dfs(v, u);
             sz[u] += sz[v];
+        }
+    }
+ 
+    void dfs_all() {
+        for(int i = 0; i < n; i++) {
+            if(sz[i] == 0) {
+                dfs(i, i);
+            }
+        }
+    }
+ 
+    void build_lca() {
+        logn = log2(n) + 1;
+        up.resize(n, vector<int>(logn));
+        for(int i = 0; i < n; i++) {
+            up[i][0] = dad[i];
+        }
+        for(int j = 1; j < logn; j++) {
+            for(int i = 0; i < n; i++) {
+                up[i][j] = up[up[i][j - 1]][j - 1];
+            }
         }
     };
     
@@ -67,5 +82,3 @@ struct tree {
         return u;
     };
 };
-
-// https://codeforces.com/problemset/problem/519/E
