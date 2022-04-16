@@ -9,7 +9,7 @@ signed main() {
     cin.tie(0);
     #define endl '\n'
 
-
+    
 
     return 0;
 }
