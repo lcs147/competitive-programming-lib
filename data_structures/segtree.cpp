@@ -52,7 +52,7 @@ struct segtree {
         update(rc, m + 1, r, i, j, v);
         t[n] = t[lc] + t[rc];
     }
-
+ 
     node query(int n, int l, int r, int i, int j) {
         push(n, l, r);
         if (r < i || l > j || l > r) return node();
@@ -62,19 +62,20 @@ struct segtree {
     }
  
     vector<node> t;
-    segtree(int n) {
+    int n;
+    segtree(int n) : n(n) {
         t.resize(2 * n);
     };
     
-    segtree(vector<T> &v) {
+    segtree(vector<int> &v) {
         t.resize(2 * v.size());
         build(0, 0, v.size() - 1, v);
     };
-
+ 
     void update(int l, int r, int v) {
         update(0, 0, n - 1, l, r, v);
     }
-
+ 
     node query(int l, int r) {
         return query(0, 0, n - 1, l, r);
     }
