@@ -1,4 +1,4 @@
-
+ 
 struct small_to_large {
     vector<vector<int>> adj;
     vector<int> c;
@@ -8,7 +8,6 @@ struct small_to_large {
         adj.resize(n);
         c.resize(n);
         f.resize(n);
-        s.resize(n);
         q.resize(n);
     }
     
@@ -18,29 +17,18 @@ struct small_to_large {
     }
     
     vector<map<int, int>> f;
-    vector<o_set<pair<int, int>>> s;
     vector<vector<pair<int, int>>> q;
-    int t = 0;
     void merge(int a, int b) {
         if(f[a].size() < f[b].size()) {
             swap(f[a], f[b]);
-            s[a].swap(s[b]);
         }
- 
-        for(auto [x, freq] : f[b]) {
-            auto it = s[a].lower_bound({f[a][x], 0});
-            if(it != s[a].end() && it->first == f[a][x]) {
-                s[a].erase(it);
-            }
-            
+        for(auto [x, freq] : f[b]) {   
             f[a][x] += freq;
-            s[a].insert({f[a][x], t++});
         }
     }
  
     void dfs(int u, int p) {
         f[u][c[u]] = 1;
-        s[u].insert({f[u][c[u]], t++});
         
         for(int v : adj[u]) {
             if(v == p) continue;
@@ -48,9 +36,13 @@ struct small_to_large {
             merge(u, v);
         }
  
-        sort(q[u].begin(), q[u].end());
         for(auto [x, id] : q[u]) {
-            res[id] = s[u].size() - s[u].order_of_key({x, 0});
+            if(f[u].count(x)) {
+                res[id] = f[u][x] - 1;
+            }
         }
+    }
+    void dfs_all() {
+        for(int i = 0; i < n; i++) if(f[i].size() == 0) dfs(i, i);
     }
 };
