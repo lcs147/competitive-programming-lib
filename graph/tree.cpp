@@ -8,8 +8,6 @@ struct tree {
         dad.resize(n);
         sz.resize(n);
         adj.resize(n);
- 
-        logn = log2(n) + 1;
     }
     
     void add(int a, int b) {
