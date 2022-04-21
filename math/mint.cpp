@@ -1,4 +1,5 @@
-const int mod = 998244353;
+
+const int mod = 1e9 + 7;
 struct mint {
     int val;
     mint(): val(0){}
@@ -32,3 +33,4 @@ struct mint {
         return u;
     }
 };
+mint mintobj;
