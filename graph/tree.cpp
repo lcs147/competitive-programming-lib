@@ -1,21 +1,19 @@
+
 struct tree {
     vector<vector<int>> adj, up;
-    vector<int> lvl, dad, sz;
+    vector<int> lvl, dad, sz, in, out;
     int n, logn;
  
-    tree(int n) : n(n) {
-        lvl.resize(n);
-        dad.resize(n);
-        sz.resize(n);
-        adj.resize(n);
-    }
+    tree(int n) : n(n), lvl(n), dad(n), sz(n), adj(n), in(n), out(n) {}
     
     void add(int a, int b) {
         adj[a].push_back(b);
         adj[b].push_back(a);
     }
- 
+    
+    int t = 0;
     void dfs(int u, int p) {
+        in[u] = ++t;
         sz[u] = 1;
         dad[u] = p;
         for(int v : adj[u]) {
@@ -24,6 +22,7 @@ struct tree {
             dfs(v, u);
             sz[u] += sz[v];
         }
+        out[u] = t;
     }
  
     void dfs_all() {

@@ -1,11 +1,12 @@
+
 template <typename T>
 struct segtree {
     struct node {
         int sum = 0;
         int lazy = 0;
         void apply(T v, int l, int r) {
-            sum += v * (r - l + 1);
-            lazy += v;
+            sum = v * (r - l + 1);
+            lazy = v;
         }
         node operator + (const node other) {
             node e;
@@ -19,13 +20,11 @@ struct segtree {
     #define rc (n + (m - l + 1) * 2)
     void push(int n, int l, int r) {
         if (t[n].lazy == 0) return;
- 
         if (l != r) {
             int m = (l + r) / 2;
             t[lc].apply(t[n].lazy, l, m);
             t[rc].apply(t[n].lazy, m + 1, r);
         }
- 
         t[n].lazy = 0;
     }
  
@@ -63,13 +62,10 @@ struct segtree {
  
     vector<node> t;
     int n;
-    segtree(int n) : n(n) {
-        t.resize(2 * n);
-    };
+    segtree(int n) : n(n), t(2 * n) {}
     
-    segtree(vector<int> &v) {
-        t.resize(2 * v.size());
-        build(0, 0, v.size() - 1, v);
+    segtree(vector<int> &v) : n(v.size()), t(2 * n) {
+        build(0, 0, n - 1, v);
     };
  
     void update(int l, int r, int v) {
