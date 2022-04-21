@@ -7,7 +7,7 @@ vector<int> lp(bigN + 1);
             lp[i] = i;
             pr.push_back(i);
         }
-        for(int j=0; j < pr.size() && pr[j] <= lp[i] && i * pr[j] <= bigN; j++)
+        for(int j = 0; j < pr.size() && pr[j] <= lp[i] && i * pr[j] <= bigN; j++)
             lp[i * pr[j]] = pr[j];
     }
 }
