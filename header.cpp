@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#define all(x) x.begin(), x.end()
 #define int long long
 using namespace std;
 
