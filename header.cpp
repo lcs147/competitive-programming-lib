@@ -4,9 +4,9 @@
 using namespace std;
 
 #ifdef LOCAL
-    #include "../cp-lib/helpers/debug.cpp"
+#include "../cp-lib/helpers/debug.cpp"
 #else
-    #define debug(...)
+#define debug(...)
 #endif
 
 signed main() {
