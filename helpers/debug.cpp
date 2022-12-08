@@ -35,7 +35,7 @@ string to_string(vector<bool> v) {
     res += "}";
     return res;
 }
- 
+
 template <size_t N>
 string to_string(bitset<N> v) {
     string res = "";
