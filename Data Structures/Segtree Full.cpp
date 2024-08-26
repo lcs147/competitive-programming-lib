@@ -4,17 +4,17 @@ struct segtree {
     struct node {
         int mn = oo;
         int lazy = 0;
-		void set(T v) {
-			mn = v;
-		}
+        void set(T v) {
+            mn = v;
+        }
         void apply(T v, int l, int r) {
-			mn += v;
-			lazy += v;
+            mn += v;
+            lazy += v;
         }
         node operator + (const node other) {
             node e;
-			if(mn <= other.mn) e.mn = mn;
-			else e.mn = other.mn;
+            if(mn <= other.mn) e.mn = mn;
+            else e.mn = other.mn;
             return e;
         }
     };
@@ -73,7 +73,7 @@ struct segtree {
         if(rs != -1) return rs;
         return get_first(rc, m + 1, r, i, j, x);
     }
-    
+
     int get_last(int n, int l, int r, int i, int j, int x) {
         push(n, l, r);
         if(l > j || r < i || t[n].mn >= x) return -1;
