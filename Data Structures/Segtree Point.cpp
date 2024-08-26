@@ -1,10 +1,16 @@
+const int oo = 1e18;
 // point update, range query
+// probably better to use the full one and erase push, becomes the same
 struct psegtree {
     struct node {
-        int sum = 0;
+        int sum = 0, mn = oo, mx = -oo;
+		node() {};
+		node(int x): sum(x), mn(x), mx(x) {};
         node operator + (node other) {
             node e;
             e.sum = sum + other.sum;
+			e.mn = min(mn, other.mn);
+			e.mx = max(mx, other.mx);
             return e;
         }
     };

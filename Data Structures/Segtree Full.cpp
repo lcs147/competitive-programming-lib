@@ -1,20 +1,23 @@
 
+const int oo = 1e18;
 template <typename T>
 struct segtree {
     struct node {
-        int mn = oo;
+        int sum = 0, mn = oo, mx = -oo;
         int lazy = 0;
         void set(T v) {
-            mn = v;
+			sum = mn = mx = v;
         }
         void apply(T v, int l, int r) {
-            mn += v;
-            lazy += v;
+            sum = v * (r - l + 1);
+			mn = mx = v;
+            lazy = v;
         }
         node operator + (const node other) {
             node e;
-            if(mn <= other.mn) e.mn = mn;
-            else e.mn = other.mn;
+			e.sum = sum + other.sum;
+			e.mn = min(mn, other.mn);
+			e.mx = max(mx, other.mx);
             return e;
         }
     };
@@ -32,7 +35,7 @@ struct segtree {
         t[n].lazy = 0;
     }
  
-    void build(int n, int l, int r, vector<T> &v) {
+    void build(int n, int l, int r, const vector<T> &v) {
         if (l == r) {
             t[n].set(v[l]);
             return;
@@ -90,7 +93,7 @@ struct segtree {
         t.resize(2 * n);
     };
     
-    segtree(vector<int> &v) : n(v.size()) {
+    segtree(const vector<int> &v) : n(v.size()) {
         t.resize(2 * n);
         build(0, 0, n - 1, v);
     };
