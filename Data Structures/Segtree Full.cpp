@@ -1,13 +1,20 @@
+
+template <typename T>
 struct segtree {
     struct node {
-        int mx = -oo;
+        int mn = oo;
+        int lazy = 0;
+		void set(T v) {
+			mn = v;
+		}
         void apply(T v, int l, int r) {
-            if(mx == -oo) mx = v;
-            else mx = max(mx, v);
+			mn += v;
+			lazy += v;
         }
         node operator + (const node other) {
             node e;
-            e.mx = max(mx, other.mx);
+			if(mn <= other.mn) e.mn = mn;
+			else e.mn = other.mn;
             return e;
         }
     };
@@ -16,11 +23,18 @@ struct segtree {
     #define lc (n + 1)
     #define rc (n + (m - l + 1) * 2)
     void push(int n, int l, int r) {
+        if (t[n].lazy == 0) return;
+        if (l != r) {
+            int m = (l + r) / 2;
+            t[lc].apply(t[n].lazy, l, m);
+            t[rc].apply(t[n].lazy, m + 1, r);
+        }
+        t[n].lazy = 0;
     }
  
     void build(int n, int l, int r, vector<T> &v) {
         if (l == r) {
-            t[n].apply(v[l], l, r);
+            t[n].set(v[l]);
             return;
         }
         int m = (l + r) / 2;
@@ -50,22 +64,22 @@ struct segtree {
         return query(lc, l, m, i, j) + query(rc, m + 1, r, i, j);
     }
 
-    // not tested
     int get_first(int n, int l, int r, int i, int j, int x) {
         push(n, l, r);
-        if(l > j || r < i || t[n].mx <= x) return -1;
+        if(l > j || r < i || t[n].mn >= x) return -1;
         if(l == r) return l;
         int m = (l + r) / 2;
         int rs = get_first(lc, l, m, i, j, x);
         if(rs != -1) return rs;
-        return get_first(rc, m + 1, r, i ,j, x);
+        return get_first(rc, m + 1, r, i, j, x);
     }
+    
     int get_last(int n, int l, int r, int i, int j, int x) {
         push(n, l, r);
-        if(l > j || r < i || t[n].mx <= x) return -1;
+        if(l > j || r < i || t[n].mn >= x) return -1;
         if(l == r) return l;
         int m = (l + r) / 2;
-        int rs = get_last(rc, m + 1, r, i ,j, x);
+        int rs = get_last(rc, m + 1, r, i, j, x);
         if(rs != -1) return rs;
         return get_last(lc, l, m, i, j, x);
     }
