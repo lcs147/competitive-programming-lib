@@ -93,7 +93,7 @@ struct segtree {
         t.resize(2 * n);
     };
     
-    segtree(const vector<int> &v) : n(v.size()) {
+    segtree(const vector<T> &v) : n(v.size()) {
         t.resize(2 * n);
         build(0, 0, n - 1, v);
     };
