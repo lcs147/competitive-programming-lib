@@ -21,6 +21,9 @@ struct mint {
     bool operator == (mint oth) const { return val == oth.val; }
     bool operator != (mint oth) const { return val != oth.val; }
     mint cpow(mint a, int b) const { mint r = 1; for(; b; a *= a, b >>= 1) if(b&1) r *= a; return r; }
+    friend ostream& operator<<(ostream& os, const mint &p) { os << to_string(p.val); return os; }
+    friend istream& operator>>(istream& is, mint &p) { is >> p.val; p.val = (p.val + mod) % mod; return is; }
+    friend string to_string(const mint &p) { return to_string(p.val); }
     mint inverse() const {
         int a = val, b = mod, u = 1, v = 0;
         while(b){
