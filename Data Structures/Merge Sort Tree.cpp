@@ -3,20 +3,24 @@
 template <typename T>
 struct mst {
     struct node {
-        o_set<pair<T, int>> a;
+        ordered_set<pair<T, int>> a;
         void set(T v, int id) {
             a.clear();
-            a.insert(make_pair(v, id));
+            a.insert({v, id});
         }
-        void update(int id, T old, T nw) {
-            a.erase({old, id});
-            a.insert({nw, id});
-        }
+        // not tested
+        // void update(int id, T old, T nw) {
+        //     a.erase({old, id});
+        //     a.insert({nw, id});
+        // }
         node operator + (const node other) {
             node e;
             e.a = a;
-            e.a.insert(all(other.a));
+            for(auto &x: other.a) e.a.insert(x);
             return e;
+        }
+        int query() {
+            return a.size();
         }
     };
  
@@ -46,14 +50,10 @@ struct mst {
         update(rc, m + 1, r, id, old, nw);
         t[n].update(nw, old, id);
     }
-    
-    int in_range(node &n, int l, int r) {
-        return n.a.order_of_key({r + 1, 0}) - n.a.order_of_key({l, 0});
-    }
 
     int query(int n, int l, int r, int i, int j) {
         if (r < i || l > j || l > r) return 0ll;
-        if (i <= l && r <= j) return in_range(t[n], l, r);
+        if (i <= l && r <= j) return t[n].query();
         int m = (l + r) / 2;
         return query(lc, l, m, i, j) + query(rc, m + 1, r, i, j);
     }
