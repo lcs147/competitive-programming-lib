@@ -8,7 +8,7 @@ bool ckmin(int& a, int b){ return b < a ? a = b, true : false; }
 bool ckmax(int& a, int b){ return b > a ? a = b, true : false; }
 auto vec(auto elem, size_t sz, auto... dim) {
     if constexpr (sizeof...(dim) == 0) return vector(sz, elem);
-    return vector(sz, vec(elem, dim...));
+    else return vector(sz, vec(elem, dim...));
 }
 
 #define L(i, j, k) for(int i = (j); i <= (k); ++i)
@@ -39,7 +39,7 @@ signed main() {
 
     int t; cin >> t;
     while(t--) {
-        
+
     }
     return 0;
 }
