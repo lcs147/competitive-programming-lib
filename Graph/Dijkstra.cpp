@@ -25,6 +25,20 @@ auto dijkstra = [](auto &g, int s) {
             }
         }
     }
-
-    return mt(d, cnt);
+    return mp(d, p);
 };
+
+
+auto [d, p] = dijkstra(adj, s);
+
+auto get_path = [&](int t) {
+    vi path;
+    while(t != -1) {
+        path.pb(t);
+        t = p[t];
+    }
+    reverse(all(path));
+    return path;
+};
+
+auto path = get_path(t);

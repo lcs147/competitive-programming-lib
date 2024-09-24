@@ -1,10 +1,11 @@
-
 struct tree {
     vector<vector<int>> adj, up;
     vector<int> lvl, dad, sz, in, out;
     int n, logn;
  
-    tree(int n) : n(n), lvl(n), dad(n), sz(n), adj(n), in(n), out(n) {}
+    tree(int n) : n(n), lvl(n), dad(n), adj(n), in(n), out(n) {
+        sz.assign(n, 0);
+    }
     
     void add(int a, int b) {
         adj[a].push_back(b);
@@ -25,6 +26,10 @@ struct tree {
         out[u] = t;
     }
  
+    bool is_ancestor(int u, int v){
+        return in[u] <= in[v] && out[v] <= out[u];
+    }
+
     void dfs_all() {
         for(int i = 0; i < n; i++) {
             if(sz[i] == 0) {
