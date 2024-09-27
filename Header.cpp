@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #define int long long
 using namespace std;
+
 int cdiv(int a, int b) { return a / b + ((a ^ b) > 0 && a % b); }
 int fdiv(int a, int b) { return a / b - ((a ^ b) < 0 && a % b); }
 bool ckmin(auto& a, auto b){ return b < a ? a = b, true : false; }
