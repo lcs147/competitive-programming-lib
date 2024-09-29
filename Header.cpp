@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
-#define int long long
 using namespace std;
+
+#define int long long
+#define fastio ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
 int cdiv(int a, int b) { return a / b + ((a ^ b) > 0 && a % b); }
 int fdiv(int a, int b) { return a / b - ((a ^ b) < 0 && a % b); }
 bool ckmin(auto& a, auto b){ return b < a ? a = b, true : false; }
@@ -10,8 +13,14 @@ auto vec(auto elem, size_t sz, auto... dim) {
     else return vector(sz, vec(elem, dim...));
 }
 
+const auto ES = "", SEP = " ";
+template<class T> auto &operator>>(istream& is, vector<T> &c) { for (auto &x : c) is >> x; return is; }
+template<class T> auto &operator<<(ostream& os, vector<T> const &c) { auto sep = ES; for (auto x : c) os << sep << x, sep = SEP; return os; }
+template<class T> auto &operator<<(ostream& os, set<T> const &c) { auto sep = ES; for (auto x : c) os << sep << x, sep = SEP; return os; }
+ 
 template<class... A> void in(A &...a) { ((cin >> a), ...); }
-template<class... A> void out(A const&... a) { ((cout << a), ...); }
+template<class... A> void print(A const&... a) { ((cout << a), ...); }
+template<class... A> void out(A const&... a) { auto sep = ES; ((cout << sep << a, sep = SEP), ...); cout << '\n'; }
 
 #define L(i, j, k) for(int i = (j); i <= (k); ++i)
 #define R(i, j, k) for(int i = (j); i >= (k); --i)
@@ -35,15 +44,14 @@ using pii = pair<int, int>;
 #else
 #define debug(...)
 #endif
- 
+
 signed main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
-    #define endl '\n'
+    fastio;
 
     int t; in(t);
     while(t--) {
         
-    }    
+    }
+    
     return 0;
 }
