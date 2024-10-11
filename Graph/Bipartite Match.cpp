@@ -1,5 +1,7 @@
+// 1 indexed, vertices from [1, n] and [1, m], O(sqrt(n) * m)
+
 struct HopcroftKarp {
-    static const int oo = 1e9;
+    static const int inf = 1e9;
     int n;
     vector<int> l, r, d;
     vector<vector<int>> g;
@@ -7,8 +9,8 @@ struct HopcroftKarp {
         n = _n;
         int p = _n + _m + 1;
         g.resize(p);
-        l.resize(p, -1);
-        r.resize(p, -1);
+        l.resize(p, 0);
+        r.resize(p, 0);
         d.resize(p, 0);
     }
     void add_edge(int u, int v) {
@@ -17,24 +19,24 @@ struct HopcroftKarp {
     bool bfs() {
         queue<int> q;
         for (int u = 1; u <= n; u++) {
-            if (l[u] == -1) d[u] = 0, q.push(u);
-            else d[u] = oo;
+        if (!l[u]) d[u] = 0, q.push(u);
+        else d[u] = inf;
         }
-        d[0] = oo;
+        d[0] = inf;
         while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            for (auto v : g[u]) {
-                if (d[r[v]] == oo) {
-                    d[r[v]] = d[u] + 1;
-                    q.push(r[v]);
-                }
+        int u = q.front();
+        q.pop();
+        for (auto v : g[u]) {
+            if (d[r[v]] == inf) {
+            d[r[v]] = d[u] + 1;
+            q.push(r[v]);
             }
         }
-        return d[0] != oo;
+        }
+        return d[0] != inf;
     }
     bool dfs(int u) {
-        if (u == -1) return true;
+        if (!u) return true;
         for (auto v : g[u]) {
             if(d[r[v]] == d[u] + 1 && dfs(r[v])) {
                 l[u] = v;
@@ -42,7 +44,7 @@ struct HopcroftKarp {
                 return true;
             }
         }
-        d[u] = oo;
+        d[u] = inf;
         return false;
     }
     int maximum_matching() {
