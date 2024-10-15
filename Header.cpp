@@ -14,6 +14,7 @@ auto vec(auto elem, size_t sz, auto... dim) {
 }
  
 const auto ES = "", SEP = " ";
+template<class T> auto &operator>>(istream& is, pair<T, T> &c) { is >> c.first >> c.second; return is; }
 template<class T> auto &operator>>(istream& is, vector<T> &c) { for (auto &x : c) is >> x; return is; }
 template<class T> auto &operator<<(ostream& os, vector<T> const &c) { auto sep = ES; for (auto x : c) os << sep << x, sep = SEP; return os; }
 template<class T> auto &operator<<(ostream& os, set<T> const &c) { auto sep = ES; for (auto x : c) os << sep << x, sep = SEP; return os; }
